@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  bun:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # Adjust as needed
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
