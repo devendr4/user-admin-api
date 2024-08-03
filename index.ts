@@ -1,10 +1,12 @@
 import express from "express";
+import cors from "cors";
 import { Cache } from "./cache";
 
 const cache = new Cache();
 await cache.client.connect();
 const app = express();
 app.use(express.json());
+app.use(cors());
 const port = 3000;
 
 app.get("/", async (_req, res) => {
@@ -14,13 +16,13 @@ app.get("/", async (_req, res) => {
 app.get("/users", async (_req, res) => {
   const cachedUsers = await cache.getUsers();
   if (cachedUsers?.length) {
-    return res.send(cachedUsers);
+    return res.send({ users: cachedUsers });
   }
   const response = await fetch("https://reqres.in/api/users");
   const data = await response.json();
 
   cache.saveUsers(data.data);
-  return res.send(data.data);
+  return res.send({ users: data.data });
 });
 
 app.get("/user/:id", async (req, res) => {
