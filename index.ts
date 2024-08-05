@@ -51,11 +51,11 @@ app.post("/user", async (req, res) => {
 
 app.put("/user/:id", async (req, res) => {
   try {
-    const editedUser = cache.editUser({
+    const editedUser = await cache.editUser({
       id: parseInt(req.params.id),
       editedUser: req.body,
     });
-    res.end(editedUser);
+    res.send(editedUser);
   } catch (e) {
     console.log(e);
     res.status(500);
