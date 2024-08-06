@@ -25,6 +25,11 @@ app.get("/users", async (_req, res) => {
   return res.send({ users: data.data });
 });
 
+app.post("/users/reset", async (_req, res) => {
+  await cache.resetCache();
+  res.sendStatus(204);
+});
+
 app.get("/user/:id", async (req, res) => {
   try {
     const user = await cache.findUser(parseInt(req.params.id));

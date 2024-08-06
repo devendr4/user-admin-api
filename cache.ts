@@ -42,6 +42,10 @@ export class Cache {
     }
   };
 
+  resetCache = async () => {
+    await this.client.del("users");
+  };
+
   editUser = async ({ id, editedUser }: { id: number; editedUser: User }) => {
     const users = await this.getUsers();
     this.saveUsers(

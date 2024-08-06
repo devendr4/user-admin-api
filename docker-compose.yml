@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   bun:
@@ -6,9 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"  # Adjust as needed
-    volumes:
-      - .:/app
+      - "3000:3000" # Adjust as needed
     depends_on:
       - redis
     environment:
